@@ -317,7 +317,9 @@ Devise.setup do |config|
         end
         def authenticate!
           token = request.headers.fetch('Authorization', '').split(' ').last
+          # JsonWebToken is the class and .decode is the method
           payload = JsonWebToken.decode(token)
+          # sub being sent from controller as :sub
           success! User.find(payload['sub'])
         rescue ::JWT::ExpiredSignature
           fail! 'Auth token has expired'

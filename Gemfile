@@ -25,6 +25,9 @@ gem 'devise'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'cloudinary', '~> 1.16.0'
 gem 'devise-jwt'
+gem "active_model_serializers", require: true
+gem 'faker'
+gem 'validates_timeliness'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'

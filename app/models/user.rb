@@ -4,4 +4,5 @@ class User < ApplicationRecord
   :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
   has_one_attached :image
+  has_many :bookings, dependent: :destroy
 end
