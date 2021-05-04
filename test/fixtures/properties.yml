@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  max_guests: 1
+  price_per_day: 1
+  longitude: 1.5
+  latitude: 1.5
+  average_rating: 1.5
+  has_beach_nearby: false
+  has_beds: false
+  has_kitchen: false
+  has_swimming_pool: false
+  has_hdtv: false
+  has_bathtub: false
+
+two:
+  title: MyString
+  description: MyString
+  max_guests: 1
+  price_per_day: 1
+  longitude: 1.5
+  latitude: 1.5
+  average_rating: 1.5
+  has_beach_nearby: false
+  has_beds: false
+  has_kitchen: false
+  has_swimming_pool: false
+  has_hdtv: false
+  has_bathtub: false
