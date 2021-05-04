@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_025035) do
+ActiveRecord::Schema.define(version: 2021_05_04_025554) do
 
   create_table "properties", force: :cascade do |t|
     t.string "title"
@@ -20,14 +20,17 @@ ActiveRecord::Schema.define(version: 2021_05_04_025035) do
     t.float "longitude"
     t.float "latitude"
     t.float "average_rating"
-    t.boolean "has_beach_nearby"
-    t.boolean "has_beds"
-    t.boolean "has_kitchen"
-    t.boolean "has_swimming_pool"
-    t.boolean "has_hdtv"
-    t.boolean "has_bathtub"
+    t.boolean "has_beach_nearby", default: false, null: false
+    t.boolean "has_beds", default: false, null: false
+    t.boolean "has_kitchen", default: false, null: false
+    t.boolean "has_swimming_pool", default: false, null: false
+    t.boolean "has_hdtv", default: false, null: false
+    t.boolean "has_bathtub", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "address"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,4 +45,5 @@ ActiveRecord::Schema.define(version: 2021_05_04_025035) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "properties", "users"
 end
