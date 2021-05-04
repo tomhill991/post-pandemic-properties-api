@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  property: one
+  date_start: 2021-05-04
+  date_end: 2021-05-04
+  no_of_guests: 1
+  user: one
+
+two:
+  property: two
+  date_start: 2021-05-04
+  date_end: 2021-05-04
+  no_of_guests: 1
+  user: two
