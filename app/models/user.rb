@@ -5,4 +5,5 @@ class User < ApplicationRecord
 
   has_one_attached :image
   has_many :bookings, dependent: :destroy
+  has_many :reviews, through: :bookings
 end
