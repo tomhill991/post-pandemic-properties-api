@@ -6,9 +6,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       post :auth, to: 'authentication#create'
       get  '/auth' => 'authentication#fetch'
-      resources :properties, only: %i[index create edit destroy] do
-        resources :bookings, only: %i[index create edit destroy] do
-          resources :reviews, only: %i[index create edit destroy]
+      resources :properties, only: %i[index show create update destroy] do
+        resources :bookings, only: %i[index create update destroy] do
+          resources :reviews, only: %i[index create update destroy]
         end
       end
     end

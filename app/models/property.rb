@@ -7,4 +7,11 @@ class Property < ApplicationRecord
     validates :title, length: { maximum: 100 }, allow_blank: false, presence: true
     validates :description, length: { maximum: 250 }, allow_blank: false, presence: true
     validates :address, presence: true
+    before_commit :parse_params
+
+    def parse_params
+        puts "--------------------------"
+        puts self
+        puts "--------------------------"
+    end
 end
