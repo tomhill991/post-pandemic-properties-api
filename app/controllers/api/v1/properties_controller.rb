@@ -11,7 +11,7 @@ class Api::V1::PropertiesController < ApiController
             @property = Property.new(property_params)
             @property.user_id = current_user.id
             @property.save!
-            
+
             if @property.save
                 render json: {
                     success: "Successfully created",
@@ -56,8 +56,23 @@ class Api::V1::PropertiesController < ApiController
         end
     end
 
-    private
+    def destroy
+        @property = Property.find(params[:id])
 
+        if current_user === @property.user
+            @property.destroy
+            
+            render json: {
+                success: "Successfully deleted this property",
+            }, status: 200
+        else  
+            render json: {
+                error: "You are not authorized to delete this property"
+            }, status: 403
+        end
+    end
+
+    private
     def property_params
         json = JSON.parse(params[:data])
         json = ActionController::Parameters.new(json)
