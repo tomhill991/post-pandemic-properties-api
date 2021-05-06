@@ -28,6 +28,7 @@ gem 'devise-jwt'
 gem "active_model_serializers", require: true
 gem 'faker'
 gem 'validates_timeliness'
+gem 'geocoder'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
