@@ -29,6 +29,22 @@ class Api::V1::BookingsController < ApiController
         end
     end
 
+    def create
+        if current_user == User.find(params[:user_id])
+            @booking = Booking.new(booking_params)
+            @booking.save!
+
+            render json: {
+                success: "Successfully create this booking",
+                booking: @booking
+            }
+        else
+            render json: {
+                error: "You are not authorized to create this booking"
+            }, status: 403
+        end
+    end
+
     private
     def booking_params
         params.require(:booking).permit(:date_start, :date_end, :no_of_guests, :user_id, :property_id)

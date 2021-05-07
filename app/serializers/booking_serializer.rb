@@ -1,5 +1,5 @@
 class BookingSerializer < ApplicationSerializer
-  attributes :id, :date_start, :date_end, :no_of_guests
-  has_one :property
-  has_one :user
+  attributes :id, :date_start, :date_end, :no_of_guests, :property
+  belongs_to :property
+  belongs_to :user
 end

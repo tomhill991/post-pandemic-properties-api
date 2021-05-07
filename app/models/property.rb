@@ -9,4 +9,10 @@ class Property < ApplicationRecord
     validates :address, presence: true
     geocoded_by :address
     after_validation :geocode
+    before_create :check_date_availability
+
+    def self.check_date_availability(booking_params)
+        bookings = Booking.where('arrival_date < ? OR leaving_date > ?', self.arrival_date, self.leaving_date)
+        return bookings.empty?
+    end
 end
