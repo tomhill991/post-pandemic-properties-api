@@ -4,17 +4,19 @@ class Booking < ApplicationRecord
   has_one :review
   validates_date :date_start, after: -> { Date.current }, presence: true
   validates :no_of_guests, presence: true
-  validate :overlapping
+  validate :overlapping_dates
+  validate :guests_allowed
 
   private
-  def overlapping
-    result = true
-
+  def overlapping_dates
     if Booking.where('? <  date_end and ? > date_start', self.date_start, self.date_end).any?
         errors.add(:Date, 'This property is already booked during these dates')
-        result = false
     end
+  end
 
-    result
+  def guests_allowed
+    if Property.find(self.property.id).max_guests < self.no_of_guests
+      errors.add(:no_of_guests, 'You are booking too many people for this property')
+    end
   end
 end
