@@ -7,7 +7,7 @@ class Api::V1::BookingsController < ApiController
 
             render json: {
                 bookings: @bookings
-            }
+            }, status: 200
         else
             render json: {
                 error: "You are not authorized to see the bookings for this property"
@@ -21,7 +21,7 @@ class Api::V1::BookingsController < ApiController
 
             render json: {
                 booking: @booking
-            }
+            }, status: 200
         else
             render json: {
                 error: "You are not authorized to see this booking"
@@ -35,9 +35,9 @@ class Api::V1::BookingsController < ApiController
 
             if @booking.save!
                 render json: {
-                    success: "Successfully create this booking",
+                    success: "Successfully created",
                     booking: @booking
-                }
+                }, status: 200
             else
                 render json: {
                     error: "There was an error when creating this booking",

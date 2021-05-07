@@ -7,8 +7,9 @@ Rails.application.routes.draw do
       post :auth, to: 'authentication#create'
       get  '/auth' => 'authentication#fetch'
       resources :properties, only: %i[index show create update destroy] do
+        resources :reviews, only: %i[index]
         resources :bookings, only: %i[index show create update destroy] do
-          resources :reviews, only: %i[index create update destroy]
+          resources :reviews, only: %i[create update destroy]
         end
       end
     end

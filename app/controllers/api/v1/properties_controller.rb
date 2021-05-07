@@ -86,9 +86,4 @@ class Api::V1::PropertiesController < ApiController
             images: params.fetch(:images, []) 
         )
     end
-
-    def is_conflict(start_date, end_date, property)
-        check = property.bookings.where("? < start_date & end_date < ? ", start_date, end_date)
-        check.size > 0 ? true : false
-    end
 end

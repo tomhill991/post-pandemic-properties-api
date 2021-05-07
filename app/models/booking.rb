@@ -10,7 +10,7 @@ class Booking < ApplicationRecord
   private
   def overlapping_dates
     if Booking.where('? <  date_end and ? > date_start', self.date_start, self.date_end).any?
-        errors.add(:Date, 'This property is already booked during these dates')
+        errors.add(:date, 'This property is already booked during these dates')
     end
   end
 
