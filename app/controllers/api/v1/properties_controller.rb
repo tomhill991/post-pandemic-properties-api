@@ -61,7 +61,7 @@ class Api::V1::PropertiesController < ApiController
 
         if current_user === @property.user
             @property.destroy
-            
+
             render json: {
                 success: "Successfully deleted this property",
             }, status: 200
@@ -85,5 +85,10 @@ class Api::V1::PropertiesController < ApiController
             # fetch is like require but does not raise if the key is not present
             images: params.fetch(:images, []) 
         )
+    end
+
+    def is_conflict(start_date, end_date, property)
+        check = property.bookings.where("? < start_date & end_date < ? ", start_date, end_date)
+        check.size > 0 ? true : false
     end
 end

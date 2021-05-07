@@ -32,15 +32,60 @@ class Api::V1::BookingsController < ApiController
     def create
         if current_user == User.find(params[:user_id])
             @booking = Booking.new(booking_params)
-            @booking.save!
 
-            render json: {
-                success: "Successfully create this booking",
-                booking: @booking
-            }
+            if @booking.save!
+                render json: {
+                    success: "Successfully create this booking",
+                    booking: @booking
+                }
+            else
+                render json: {
+                    error: "There was an error when creating this booking",
+                    booking: @booking.errors.full_messages
+                }, status: 500
+            end
         else
             render json: {
                 error: "You are not authorized to create this booking"
+            }, status: 403
+        end
+    end
+
+    def update
+        if current_user == User.find(params[:user_id])
+            booking = Booking.find(params[:id])
+            @booking = booking.update(booking_params)
+
+            if @booking
+                render json: {
+                    success: "Successfully updated this booking",
+                    booking: Booking.find(params[:id])
+                }, status: 200
+            else
+                render json: {
+                    error: "There was an error when updating this booking",
+                    booking: booking.errors.full_messages
+                }, status: 500
+            end
+        else
+            render json: {
+                error: "You are not authorized to update this booking"
+            }, status: 403
+        end
+    end
+
+    def destroy
+        @booking = Booking.find(params[:id])
+
+        if current_user === users_booking
+            @booking.destroy
+
+            render json: {
+                success: "Successfully deleted this booking",
+            }, status: 200
+        else  
+            render json: {
+                error: "You are not authorized to delete this property"
             }, status: 403
         end
     end
