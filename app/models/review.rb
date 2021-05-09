@@ -18,7 +18,7 @@ class Review < ApplicationRecord
     def added_after_booking_date?
         booking = self.booking
 
-        if booking.date_end.to_date < Date.today
+        if booking.date_end >= Date.today
             errors.add(:date_end, 'You cannot add a review until you have left the accommodation!')
         end
     end
