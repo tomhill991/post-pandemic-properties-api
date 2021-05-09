@@ -30,8 +30,9 @@ class Api::V1::BookingsController < ApiController
     end
 
     def create
-        if current_user == User.find(params[:user_id])
+        if user_signed_in?
             @booking = Booking.new(booking_params)
+            @booking.user_id = current_user.id
 
             if @booking.save!
                 render json: {
@@ -52,7 +53,7 @@ class Api::V1::BookingsController < ApiController
     end
 
     def update
-        if current_user == User.find(params[:user_id])
+        if user_signed_in?
             booking = Booking.find(params[:id])
             @booking = booking.update(booking_params)
 
@@ -92,7 +93,7 @@ class Api::V1::BookingsController < ApiController
 
     private
     def booking_params
-        params.require(:booking).permit(:date_start, :date_end, :no_of_guests, :user_id, :property_id)
+        params.require(:booking).permit(:date_start, :date_end, :no_of_guests, :property_id)
     end
 
     def users_property

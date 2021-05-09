@@ -6,8 +6,16 @@ class Booking < ApplicationRecord
   validates :no_of_guests, presence: true
   validate :overlapping_dates
   validate :guests_allowed
+  validate :end_date_after_start_date?
+
 
   private
+  def end_date_after_start_date?
+    if self.date_end < self.date_start
+      errors.add(:end_date, "The start date must be before the end date")
+    end
+  end
+
   def overlapping_dates
     if Booking.where('? <  date_end and ? > date_start', self.date_start, self.date_end).any?
         errors.add(:date, 'This property is already booked during these dates')

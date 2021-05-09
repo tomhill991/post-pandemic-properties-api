@@ -34,22 +34,20 @@ class Api::V1::ReviewsController < ApiController
     def update
         @review = Review.find(params[:id])
         if current_user === users_review   
-            review = @review.update(review_params)
-
-            if review 
+            if @review.update(review_params)
                 render json: {
                     success: "Successfully updated",
                     review: @review,
                 }, status: 200
             else
                 render json: {
-                    error: "Error when updating this property",
+                    error: "Error when updating this review",
                     message: @review.errors.full_messages
                 }, status: 500
             end
         else
             render json: {
-                error: "You are not authorized to update this property"
+                error: "You are not authorized to update this review"
             }, status: 403
         end
     end
@@ -76,6 +74,6 @@ class Api::V1::ReviewsController < ApiController
     end
 
     def users_review
-        Property.find(params[:property_id]).user
+        Booking.find(params[:booking_id]).user
     end
 end

@@ -36,10 +36,8 @@ class Api::V1::PropertiesController < ApiController
 
     def update
         @property = Property.find(params[:id])
-        if current_user === @property.user   
-            property = @property.update(property_params)
-
-            if property 
+        if current_user === @property.user
+            if @property.update(property_params)
                 render json: {
                     success: "Successfully updated",
                     property: @property,

@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_131234) do
+ActiveRecord::Schema.define(version: 2021_05_07_152901) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,17 +38,17 @@ ActiveRecord::Schema.define(version: 2021_05_07_131234) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.integer "property_id", null: false
+    t.bigint "property_id", null: false
     t.date "date_start"
     t.date "date_end"
     t.integer "no_of_guests"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["property_id"], name: "index_bookings_on_property_id"
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_131234) do
     t.integer "price_per_day"
     t.float "longitude"
     t.float "latitude"
-    t.float "average_rating"
+    t.float "average_rating", default: 1.0
     t.boolean "has_beach_nearby", default: false, null: false
     t.boolean "has_beds", default: false, null: false
     t.boolean "has_kitchen", default: false, null: false
@@ -69,7 +72,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_131234) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "address"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
@@ -78,7 +81,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_131234) do
     t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "booking_id", null: false
+    t.bigint "booking_id", null: false
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
   end
 
